@@ -1,7 +1,17 @@
-import React from "react";
+// import React from "react";
 import Dog from "./components/Dog";
 import Header from "./components/Header";
 import "./App.css";
+import React, { Component } from "react";
+
+class DogApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "Scruffles",
+    };
+  }
+}
 
 function App() {
   let dogs = [
