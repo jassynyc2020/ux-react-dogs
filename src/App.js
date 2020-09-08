@@ -3,6 +3,7 @@ import Dog from "./components/Dog";
 import Header from "./components/Header";
 import "./App.css";
 import React, { Component } from "react";
+import { render } from "@testing-library/react";
 
 class DogApp extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ function App() {
 
   let favoriteDog = pickNewFavorite();
 
+  render();
   return (
     <div className="dogs">
       <Header numDogs={dogs.length} />
