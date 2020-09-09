@@ -3,53 +3,54 @@ import Dog from "./components/Dog";
 import Header from "./components/Header";
 import "./App.css";
 import React, { Component } from "react";
-import { render } from "@testing-library/react";
 
-class DogApp extends React.Component {
+class DogApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Scruffles",
+      dogs: [
+        {
+          name: "Scruffles",
+          type: "Chihuahua",
+        },
+        {
+          name: "Snarf",
+          type: "Border Collie",
+        },
+        {
+          name: "Wookie",
+          type: "English Sheepdog",
+        },
+      ],
+      favoriteDog: "",
     };
   }
-}
+  pickNewFavorite = () => {
+    let newDogIndex = Math.floor(Math.random() * this.state.dogs.length);
+    return this.state.dogs[newDogIndex];
+  };
 
-function App() {
-  let dogs = [
-    {
-      name: "Scruffles",
-      type: "Chihuahua",
-    },
-    {
-      name: "Snarf",
-      type: "Border Collie",
-    },
-    {
-      name: "Wookie",
-      type: "English Sheepdog",
-    },
-  ];
+  pickFavoriteDog = () => {
+    this.setState({
+      favoriteDog: this.pickNewFavorite(),
+    });
+  };
 
-  function pickNewFavorite() {
-    let newDogIndex = Math.floor(Math.random() * dogs.length);
-    return dogs[newDogIndex];
-  }
-
-  let favoriteDog = pickNewFavorite();
-
-  render();
-  return (
-    <div className="dogs">
-      <Header numDogs={dogs.length} />
-      <h2>My Dogs</h2>
-      <div>
-        {dogs.map((dog) => (
-          <Dog dog={dog} />
-        ))}
+  render() {
+    return (
+      <div className="dogs">
+        <Header numDogs={this.state.dogs.length} />
+        <h2>My Dogs</h2>
+        <div>
+          {this.state.dogs.map((dog) => (
+            <Dog dog={dog} />
+          ))}
+        </div>
+        <h2>My Favorite dog is {this.state.favoriteDog.name}</h2>
+        <button onClick={() => this.pickFavoriteDog()}>Pick Favorite</button>
       </div>
-      <h2>My Favorite dog is {favoriteDog.name}</h2>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+export default DogApp;
