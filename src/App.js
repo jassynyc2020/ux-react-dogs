@@ -8,19 +8,23 @@ class DogApp extends Component {
   state = {
     dogs: [
       {
+        id: "a",
         name: "Scruffles",
         type: "Chihuahua",
       },
       {
+        id: "b",
         name: "Snarf",
         type: "Border Collie",
       },
       {
+        id: "c",
         name: "Wookie",
         type: "English Sheepdog",
       },
     ],
     favoriteDog: "",
+    favoriteDogType: "",
   };
 
   // pickNewFavorite = () => {
@@ -38,15 +42,19 @@ class DogApp extends Component {
     this.setState({ favoriteDog: event.target.value });
   };
 
+  handleNewDogTypeChange = (event) => {
+    this.setState({ favoriteDogType: event.target.value });
+  };
+
   handleFavoriteDog = (event) => {
     this.setState((state) => {
       return {
         dogs: [
           ...state.dogs,
-          { name: state.favoriteDog },
-          { type: state.favoriteDog },
+          { name: state.favoriteDog, type: state.favoriteDogType },
         ],
         favoriteDog: "",
+        favoriteDogType: "",
       };
     });
   };
@@ -58,7 +66,7 @@ class DogApp extends Component {
         <h2>My Dogs</h2>
         <ul className="dogList">
           {this.state.dogs.map((dog, index) => (
-            <li key={index}>
+            <li key={index.id}>{index.name}
               <Dog dog={dog} />
             </li>
           ))}
@@ -71,7 +79,12 @@ class DogApp extends Component {
             onChange={this.handleNewDogChange}
             value={this.state.favoriteDog}
           />
-          <button onClick={this.handleNewDogChange}>Pick Favorite</button>
+          <input
+            type="text"
+            onChange={this.handleNewDogTypeChange}
+            value={this.state.favoriteDogType}
+          />
+          <button onClick={this.handleFavoriteDog}>Pick Favorite</button>
         </div>
       </div>
     );
